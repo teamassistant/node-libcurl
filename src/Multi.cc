@@ -309,8 +309,10 @@ int Multi::CbPushFunction(CURL* parent, CURL* child, size_t numberOfHeaders,  //
   assert(obj);
   assert(obj->isOpen);
 
+#if NODE_LIBCURL_VER_GE(7, 44, 0)
   CallbacksMap::iterator it = obj->callbacks.find(CURLMOPT_PUSHFUNCTION);
   assert(it != obj->callbacks.end() && "PUSHFUNCTION callback not set.");
+#endif
 
   char* parentEasyPtr = nullptr;
   CURLcode code = curl_easy_getinfo(parent, CURLINFO_PRIVATE, &parentEasyPtr);
